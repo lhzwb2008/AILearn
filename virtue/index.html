@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe的中华传统美德 - 课程目录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .lesson-number {
+            background: #ff6b6b;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .lesson-card h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .lesson-card p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .lesson-status {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+        
+        .lesson-preview {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .virtue-highlight {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: #2d3436;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='../index.html'">← 返回主页</button>
+    
+    <div class="header">
+        <h1>🌸 中华传统美德</h1>
+        <p>和Chloe一起学习做人的道理，培养美好品格</p>
+    </div>
+    
+    <div class="lessons-grid">
+        <div class="lesson-card" onclick="location.href='lesson1/index.html'">
+            <div class="lesson-number">1</div>
+            <div class="lesson-preview">🍐👦👶</div>
+            <h2>孔融让梨</h2>
+            <p>学习谦让和关爱他人的美德。孔融虽然年纪小，但懂得把大梨让给哥哥和弟弟，自己拿最小的。</p>
+            <div class="virtue-highlight">
+                美德：谦让、关爱、孝顺
+            </div>
+            <div class="lesson-status">可以学习</div>
+        </div>
+        
+        <div class="lesson-card" onclick="location.href='lesson2/index.html'">
+            <div class="lesson-number">2</div>
+            <div class="lesson-preview">🌊🏔️👨‍💼</div>
+            <h2>大禹治水</h2>
+            <p>学习坚持不懈和为民服务的精神。大禹为了治理洪水，三过家门而不入，一心为百姓着想。</p>
+            <div class="virtue-highlight">
+                美德：坚持、奉献、责任心
+            </div>
+            <div class="lesson-status">可以学习</div>
+        </div>
+        
+        <div class="lesson-card" onclick="location.href='lesson3/index.html'">
+            <div class="lesson-number">3</div>
+            <div class="lesson-preview">🏠👩‍👦📚</div>
+            <h2>孟母三迁</h2>
+            <p>学习重视教育和环境的重要性。孟子的妈妈为了给孩子更好的学习环境，三次搬家。</p>
+            <div class="virtue-highlight">
+                美德：重视教育、用心良苦、智慧
+            </div>
+            <div class="lesson-status">可以学习</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe学美德 - 孟母三迁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .personal-greeting {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            color: #6c5ce7;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .back-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .story-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .story-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .story-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .story-title {
+            color: #6c5ce7;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .story-content {
+            font-size: 1.3em;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .interactive-area {
+            background: #f8f5ff;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 3px dashed #6c5ce7;
+            margin: 20px 0;
+        }
+        
+        .environment-selection {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .environment {
+            width: 200px;
+            height: 150px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            position: relative;
+            border: 4px solid transparent;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .environment:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .environment.selected {
+            border-color: #00b894;
+            box-shadow: 0 0 20px rgba(0, 184, 148, 0.5);
+        }
+        
+        .environment.wrong {
+            border-color: #d63031;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        .cemetery {
+            background: linear-gradient(135deg, #636e72, #2d3436);
+        }
+        
+        .market {
+            background: linear-gradient(135deg, #e17055, #d63031);
+        }
+        
+        .school {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+        
+        .environment-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .environment-label {
+            font-size: 1.2em;
+            text-align: center;
+        }
+        
+        .choice-btn {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .choice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .choice-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result-text {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #6c5ce7;
+            display: none;
+        }
+        
+        .correct-result {
+            background: rgba(0, 184, 148, 0.1);
+            border-left-color: #00b894;
+        }
+        
+        .wrong-result {
+            background: rgba(214, 48, 49, 0.1);
+            border-left-color: #d63031;
+        }
+        
+        .moving-animation {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .moving-animation::before {
+            content: "🚚";
+            position: absolute;
+            top: 50%;
+            left: -50px;
+            font-size: 2em;
+            animation: moveRight 3s ease-in-out;
+        }
+        
+        @keyframes moveRight {
+            0% { left: -50px; }
+            100% { left: calc(100% + 50px); }
+        }
+        
+        .virtue-lesson {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .virtue-lesson h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .virtue-points {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .virtue-points li {
+            background: rgba(255,255,255,0.2);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            border-left: 4px solid white;
+        }
+        
+        .chloe-special {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.3em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        .step.active {
+            background: #6c5ce7;
+        }
+        
+        .step.completed {
+            background: #00b894;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='../index.html'">← 返回美德课程</button>
+    
+    <div class="header">
+        <h1>🏠 孟母三迁</h1>
+        <div class="personal-greeting">
+            🌟 亲爱的Chloe，今天我们要学习重视教育的智慧！🌟
+        </div>
+    </div>
+    
+    <div class="story-container">
+        <!-- 故事背景 -->
+        <div class="story-section">
+            <h2 class="story-title">📖 孟子的妈妈</h2>
+            <div class="story-content">
+                很久以前，有一个叫孟子的小朋友，他有一个非常聪明的妈妈。<br><br>
+                孟子的妈妈发现：<strong>环境对孩子的成长非常重要</strong>！
+                如果孩子在不好的环境中长大，就容易学坏；
+                如果在好的环境中长大，就能学到很多好品质。<br><br>
+                为了给孟子最好的成长环境，孟母决定搬家...
+            </div>
+        </div>
+        
+        <!-- 第一次搬家 -->
+        <div class="story-section" id="firstMove">
+            <h2 class="story-title">🏚️ 第一次搬家</h2>
+            <div class="step-indicator">
+                <div class="step active">1</div>
+                <div class="step">2</div>
+                <div class="step">3</div>
+            </div>
+            <div class="story-content">
+                孟子家最开始住在墓地附近。小孟子每天看到办丧事，
+                就学着哭哭啼啼，还学着挖坟墓的样子玩游戏。<br><br>
+                孟母想："这样下去不行，孩子会学坏的！"
+            </div>
+            <div class="interactive-area">
+                <h3>Chloe，如果你是孟母，你会搬到哪里？</h3>
+                <div class="environment-selection">
+                    <div class="environment cemetery" onclick="selectEnvironment('cemetery', 1)" id="cemetery1">
+                        <div class="environment-icon">⚰️</div>
+                        <div class="environment-label">继续住墓地</div>
+                    </div>
+                    <div class="environment market" onclick="selectEnvironment('market', 1)" id="market1">
+                        <div class="environment-icon">🏪</div>
+                        <div class="environment-label">搬到集市</div>
+                    </div>
+                </div>
+                <button class="choice-btn" onclick="makeChoice(1)" id="confirmBtn1" disabled>确定选择</button>
+                <div id="result1" class="result-text"></div>
+            </div>
+        </div>
+        
+        <!-- 第二次搬家 -->
+        <div class="story-section" id="secondMove" style="display: none;">
+            <h2 class="story-title">🏪 第二次搬家</h2>
+            <div class="step-indicator">
+                <div class="step completed">1</div>
+                <div class="step active">2</div>
+                <div class="step">3</div>
+            </div>
+            <div class="story-content">
+                孟母把家搬到了集市附近。但是小孟子又开始学商人讨价还价，
+                学着大声叫卖，变得很吵闹。<br><br>
+                孟母又想："这里也不适合孩子成长！"
+            </div>
+            <div class="interactive-area">
+                <h3>这次孟母应该搬到哪里呢？</h3>
+                <div class="environment-selection">
+                    <div class="environment market" onclick="selectEnvironment('market', 2)" id="market2">
+                        <div class="environment-icon">🏪</div>
+                        <div class="environment-label">继续住集市</div>
+                    </div>
+                    <div class="environment school" onclick="selectEnvironment('school', 2)" id="school2">
+                        <div class="environment-icon">🏫</div>
+                        <div class="environment-label">搬到学校附近</div>
+                    </div>
+                </div>
+                <button class="choice-btn" onclick="makeChoice(2)" id="confirmBtn2" disabled>确定选择</button>
+                <div id="result2" class="result-text"></div>
+            </div>
+        </div>
+        
+        <!-- 第三次搬家 -->
+        <div class="story-section" id="thirdMove" style="display: none;">
+            <h2 class="story-title">🏫 第三次搬家</h2>
+            <div class="step-indicator">
+                <div class="step completed">1</div>
+                <div class="step completed">2</div>
+                <div class="step active">3</div>
+            </div>
+            <div class="story-content">
+                孟母把家搬到了学校附近。这次，小孟子每天看到学生们
+                认真读书、有礼貌地向老师行礼，他也开始模仿。<br><br>
+                渐渐地，孟子变得爱学习、有礼貌，后来成为了伟大的思想家！<br><br>
+                <strong>孟母三迁的故事告诉我们：环境对成长非常重要！</strong>
+            </div>
+            <div class="moving-animation">
+                <p style="text-align: center; font-size: 1.5em; color: #00b894;">
+                    🎉 孟子在好环境中茁壮成长！🎉
+                </p>
+            </div>
+        </div>
+        
+        <!-- 美德教育 -->
+        <div class="virtue-lesson">
+            <h3>🌟 Chloe学到的美德</h3>
+            <ul class="virtue-points">
+                <li><strong>重视教育：</strong>知道学习和成长环境的重要性</li>
+                <li><strong>用心良苦：</strong>父母为孩子的付出都是有深意的</li>
+                <li><strong>明智选择：</strong>能够分辨什么对成长有益</li>
+                <li><strong>坚持不懈：</strong>为了目标不断努力和改变</li>
+            </ul>
+        </div>
+        
+        <!-- 现实应用 -->
+        <div class="story-section">
+            <h2 class="story-title">💝 Chloe可以这样做</h2>
+            <div class="story-content">
+                <strong>选择好朋友：</strong><br>
+                • 和爱学习、有礼貌的同学做朋友<br>
+                • 远离说脏话、不守规矩的人<br>
+                • 在好朋友的影响下变得更好<br><br>
+                
+                <strong>创造好环境：</strong><br>
+                • 把学习桌整理得干净整齐<br>
+                • 在安静的地方读书和写作业<br>
+                • 多去图书馆、博物馆这样的地方<br><br>
+                
+                <strong>感谢父母：</strong><br>
+                • 理解父母为我们选择学校、兴趣班的用心<br>
+                • 珍惜父母为我们创造的好环境<br><br>
+                
+                <strong>记住：</strong>好环境造就好品格，我们要学会选择！
+            </div>
+        </div>
+        
+        <div class="chloe-special">
+            🎉 恭喜Chloe学会了重视教育和环境的智慧！🎉<br>
+            像孟母一样，Chloe也要学会为自己选择好的环境！<br>
+            好环境让我们成长得更好，智慧让我们的选择更明智！
+        </div>
+    </div>
+    
+    <script>
+        let currentStep = 1;
+        let selectedEnvironments = {};
+        
+        function selectEnvironment(env, step) {
+            // 清除当前步骤的选择
+            document.querySelectorAll(`#${env}${step}, #cemetery${step}, #market${step}, #school${step}`).forEach(element => {
+                if (element) element.classList.remove('selected', 'wrong');
+            });
+            
+            // 选择当前环境
+            const selected = document.getElementById(env + step);
+            if (selected) {
+                selected.classList.add('selected');
+                selectedEnvironments[step] = env;
+                
+                // 启用确认按钮
+                document.getElementById(`confirmBtn${step}`).disabled = false;
+            }
+        }
+        
+        function makeChoice(step) {
+            const selected = selectedEnvironments[step];
+            if (!selected) return;
+            
+            const result = document.getElementById(`result${step}`);
+            const confirmBtn = document.getElementById(`confirmBtn${step}`);
+            
+            confirmBtn.disabled = true;
+            
+            if (step === 1) {
+                if (selected === 'market') {
+                    // 正确选择
+                    result.className = 'result-text correct-result';
+                    result.innerHTML = `
+                        🎉 很好！Chloe选择搬到集市附近！<br>
+                        孟母也是这样想的，集市比墓地更适合孩子成长。
+                        让我们看看接下来会发生什么...
+                    `;
+                    
+                    setTimeout(() => {
+                        document.getElementById('secondMove').style.display = 'block';
+                        document.getElementById('secondMove').scrollIntoView({ behavior: 'smooth' });
+                    }, 2000);
+                    
+                } else {
+                    // 错误选择
+                    result.className = 'result-text wrong-result';
+                    result.innerHTML = `
+                        🤔 继续住在墓地附近，孟子会一直学习不好的行为。<br>
+                        孟母觉得应该给孩子一个更好的环境。让我们重新选择吧！
+                    `;
+                    
+                    document.getElementById('cemetery1').classList.add('wrong');
+                    
+                    setTimeout(() => {
+                        resetChoice(1);
+                    }, 3000);
+                }
+                
+            } else if (step === 2) {
+                if (selected === 'school') {
+                    // 正确选择
+                    result.className = 'result-text correct-result';
+                    result.innerHTML = `
+                        🎉 太棒了！Chloe选择了学校附近！<br>
+                        这正是孟母的最终选择，学校是最适合孩子成长的环境！
+                    `;
+                    
+                    setTimeout(() => {
+                        document.getElementById('thirdMove').style.display = 'block';
+                        document.getElementById('thirdMove').scrollIntoView({ behavior: 'smooth' });
+                    }, 2000);
+                    
+                    showEncouragement("Chloe真聪明，知道教育环境的重要性！");
+                    
+                } else {
+                    // 错误选择
+                    result.className = 'result-text wrong-result';
+                    result.innerHTML = `
+                        😕 继续住在集市，孟子还是会学到商人的习惯。<br>
+                        孟母希望找到一个更有利于学习的地方。再想想吧！
+                    `;
+                    
+                    document.getElementById('market2').classList.add('wrong');
+                    
+                    setTimeout(() => {
+                        resetChoice(2);
+                    }, 3000);
+                }
+            }
+            
+            result.style.display = 'block';
+        }
+        
+        function resetChoice(step) {
+            selectedEnvironments[step] = null;
+            document.getElementById(`confirmBtn${step}`).disabled = true;
+            document.getElementById(`result${step}`).style.display = 'none';
+            
+            document.querySelectorAll('.environment').forEach(env => {
+                env.classList.remove('selected', 'wrong');
+            });
+        }
+        
+        // 鼓励语句
+        const encouragements = [
+            "Chloe很有智慧！🧠",
+            "懂得选择环境的Chloe真棒！⭐",
+            "孟母为Chloe的选择点赞！👍",
+            "Chloe明白了教育的重要性！📚",
+            "这样的思考能力值得表扬！🌟",
+            "Chloe是个有远见的孩子！👀"
+        ];
+        
+        function showEncouragement(customMessage = null) {
+            const message = customMessage || encouragements[Math.floor(Math.random() * encouragements.length)];
+            
+            const div = document.createElement('div');
+            div.textContent = message;
+            div.style.cssText = `
+                position: fixed;
+                top: 20%;
+                right: 20px;
+                transform: translateY(-50%);
+                background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                font-size: 1.2em;
+                z-index: 1000;
+                animation: slideIn 3s ease-in-out;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(div);
+            
+            setTimeout(() => {
+                if (document.body.contains(div)) {
+                    document.body.removeChild(div);
+                }
+            }, 3000);
+        }
+        
+        // 添加滑入动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                0% { 
+                    opacity: 0; 
+                    transform: translateY(-50%) translateX(100px); 
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translateY(-50%) translateX(0); 
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translateY(-50%) translateX(0); 
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translateY(-50%) translateX(100px); 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 页面加载完成后显示欢迎信息
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showEncouragement("准备和孟母一起为孩子选择好环境吧！");
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

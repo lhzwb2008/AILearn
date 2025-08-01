@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物理实验测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .track {
+            height: 60px;
+            border-radius: 10px;
+            margin: 10px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+        
+        .smooth-track {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            border: 2px solid #0984e3;
+        }
+        
+        .rough-track {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            border: 2px solid #e84393;
+        }
+        
+        .ball {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            transition: none;
+        }
+        
+        .smooth-motion {
+            animation: smoothMove 3s linear forwards;
+        }
+        
+        .friction-stop {
+            animation: frictionStop 4s ease-out forwards;
+        }
+        
+        @keyframes smoothMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(300px); }
+        }
+        
+        @keyframes frictionStop {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(120px); }
+            40% { transform: translateX(160px); }
+            60% { transform: translateX(180px); }
+            80% { transform: translateX(190px); }
+            100% { transform: translateX(200px); }
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .smooth-btn { background: #74b9ff; color: white; }
+        .rough-btn { background: #fd79a8; color: white; }
+        .reset-btn { background: #00b894; color: white; }
+        
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 物理实验正确性测试</h1>
+    
+    <div class="test-container">
+        <h2>牛顿第一定律：惯性定律测试</h2>
+        
+        <h3>光滑跑道（几乎无摩擦）</h3>
+        <div class="track smooth-track">
+            <div class="ball" id="smoothBall"></div>
+        </div>
+        <button class="smooth-btn" onclick="testSmooth()">测试光滑跑道</button>
+        <div class="explanation" id="smoothExplanation" style="display: none;">
+            ✅ <strong>正确：</strong>球在光滑跑道上匀速运动，滚得很远（300px），符合惯性定律。
+            在理想情况下，球会一直保持匀速运动。
+        </div>
+        
+        <h3>粗糙跑道（有摩擦阻力）</h3>
+        <div class="track rough-track">
+            <div class="ball" id="roughBall"></div>
+        </div>
+        <button class="rough-btn" onclick="testRough()">测试粗糙跑道</button>
+        <div class="explanation" id="roughExplanation" style="display: none;">
+            ✅ <strong>正确：</strong>球在粗糙跑道上逐渐减速，最终停在某个位置（200px），
+            不会往回滚。摩擦力消耗了球的动能。
+        </div>
+        
+        <button class="reset-btn" onclick="resetAll()">重置所有实验</button>
+        
+        <div class="explanation">
+            <h4>🧪 物理原理验证：</h4>
+            <ul>
+                <li><strong>光滑跑道：</strong>摩擦力≈0，球保持匀速运动（惯性）</li>
+                <li><strong>粗糙跑道：</strong>摩擦力>0，球逐渐减速直至停止</li>
+                <li><strong>关键：</strong>球不会往后退，只会在某个位置停下</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function testSmooth() {
+            const ball = document.getElementById('smoothBall');
+            const explanation = document.getElementById('smoothExplanation');
+            
+            // 重置
+            ball.classList.remove('smooth-motion');
+            ball.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                ball.classList.add('smooth-motion');
+                explanation.style.display = 'block';
+            }, 100);
+        }
+        
+        function testRough() {
+            const ball = document.getElementById('roughBall');
+            const explanation = document.getElementById('roughExplanation');
+            
+            // 重置
+            ball.classList.remove('friction-stop');
+            ball.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                ball.classList.add('friction-stop');
+                explanation.style.display = 'block';
+            }, 100);
+        }
+        
+        function resetAll() {
+            const smoothBall = document.getElementById('smoothBall');
+            const roughBall = document.getElementById('roughBall');
+            const explanations = document.querySelectorAll('.explanation[id$="Explanation"]');
+            
+            // 清除动画
+            smoothBall.classList.remove('smooth-motion');
+            roughBall.classList.remove('friction-stop');
+            
+            // 重置位置
+            smoothBall.style.transform = 'translateX(0)';
+            roughBall.style.transform = 'translateX(0)';
+            
+            // 隐藏说明
+            explanations.forEach(exp => exp.style.display = 'none');
+        }
+    </script>
+</body>
+</html>

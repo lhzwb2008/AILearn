@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe的学习乐园 🌟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #ff6b6b;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .subject-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .subject-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .virtue { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .physics { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .math { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .history { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .chinese { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        
+        .subject-card h2 {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .subject-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+        
+        .lessons-count {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 15px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌈 Chloe的学习乐园 🌈</h1>
+        <p>专为聪明可爱的Chloe定制的互动学习课程</p>
+    </div>
+    
+    <div class="subjects-grid">
+        <div class="subject-card virtue" onclick="location.href='virtue/index.html'">
+            <div class="subject-icon">🌸</div>
+            <h2>中华传统美德</h2>
+            <p>通过经典故事学习做人的道理，培养良好的品格</p>
+            <div class="lessons-count">已有课程：3节</div>
+        </div>
+        
+        <div class="subject-card physics" onclick="location.href='physics/index.html'">
+            <div class="subject-icon">🔬</div>
+            <h2>物理世界</h2>
+            <p>探索神奇的物理现象，了解我们身边的科学原理</p>
+            <div class="lessons-count">已有课程：1节</div>
+        </div>
+        
+        <div class="subject-card math" onclick="alert('数学课程即将上线，敬请期待！')">
+            <div class="subject-icon">🧮</div>
+            <h2>数学王国</h2>
+            <p>在游戏中学习数学，让数字变得有趣起来</p>
+            <div class="lessons-count">即将上线</div>
+        </div>
+        
+        <div class="subject-card history" onclick="alert('历史课程即将上线，敬请期待！')">
+            <div class="subject-icon">🏛️</div>
+            <h2>中国历史</h2>
+            <p>穿越时空，了解我们祖国的悠久历史文化</p>
+            <div class="lessons-count">即将上线</div>
+        </div>
+        
+        <div class="subject-card chinese" onclick="alert('语文课程即将上线，敬请期待！')">
+            <div class="subject-icon">📚</div>
+            <h2>语文天地</h2>
+            <p>在诗词歌赋中感受中文的魅力</p>
+            <div class="lessons-count">即将上线</div>
+        </div>
+    </div>
+</body>
+</html>
