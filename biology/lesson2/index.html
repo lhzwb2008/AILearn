@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plants Are Alive - Biology Fun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #56ab2f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .plant-card {
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .plant-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .plant-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .plant-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #00695c;
+            margin-bottom: 5px;
+        }
+        
+        .plant-info {
+            font-size: 1em;
+            color: #004d40;
+        }
+        
+        .fun-fact {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .fun-fact h3 {
+            margin-bottom: 10px;
+        }
+        
+        .activity-box {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            color: white;
+        }
+        
+        .activity-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .plant-parts {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .plant-parts h3 {
+            color: #56ab2f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .part-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 3px solid #56ab2f;
+        }
+        
+        .part-emoji {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .part-name {
+            font-weight: bold;
+            color: #56ab2f;
+            margin-bottom: 5px;
+        }
+        
+        .part-job {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .word-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .word-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .word-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #ffc107;
+        }
+        
+        .word-item strong {
+            color: #856404;
+        }
+        
+        .growing-demo {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+            animation: grow 4s ease-in-out infinite;
+        }
+        
+        @keyframes grow {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='../index.html'">← Back to Biology</button>
+    
+    <div class="header">
+        <h1>🌱 Plants Are Alive</h1>
+        <p>Let's discover the amazing world of plants!</p>
+    </div>
+    
+    <div class="content">
+        <div class="growing-demo">🌱 → 🌿 → 🌳</div>
+        
+        <div class="section">
+            <h2>🌿 What Are Plants?</h2>
+            <p>Plants are living things just like animals! But they are different because they can't move around like we do. Plants make their own food using sunlight, water, and air!</p>
+        </div>
+        
+        <div class="plant-parts">
+            <h3>🔍 Parts of a Plant</h3>
+            <p style="text-align: center; margin-bottom: 20px;">Every plant has special parts that help it live and grow:</p>
+            
+            <div class="parts-grid">
+                <div class="part-item">
+                    <div class="part-emoji">🌿</div>
+                    <div class="part-name">Leaves</div>
+                    <div class="part-job">Make food from sunlight</div>
+                </div>
+                
+                <div class="part-item">
+                    <div class="part-emoji">🌸</div>
+                    <div class="part-name">Flowers</div>
+                    <div class="part-job">Make new plants</div>
+                </div>
+                
+                <div class="part-item">
+                    <div class="part-emoji">🌳</div>
+                    <div class="part-name">Stem</div>
+                    <div class="part-job">Holds plant up</div>
+                </div>
+                
+                <div class="part-item">
+                    <div class="part-emoji">🌱</div>
+                    <div class="part-name">Roots</div>
+                    <div class="part-job">Get water from soil</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🌳 Types of Plants</h2>
+            <p>There are many different kinds of plants around us:</p>
+            
+            <div class="plant-grid">
+                <div class="plant-card">
+                    <div class="plant-emoji">🌳</div>
+                    <div class="plant-name">Trees</div>
+                    <div class="plant-info">Big and tall plants</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🌸</div>
+                    <div class="plant-name">Flowers</div>
+                    <div class="plant-info">Pretty and colorful</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🌿</div>
+                    <div class="plant-name">Grass</div>
+                    <div class="plant-info">Short green plants</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🥕</div>
+                    <div class="plant-name">Vegetables</div>
+                    <div class="plant-info">Plants we can eat</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🍎</div>
+                    <div class="plant-name">Fruit Trees</div>
+                    <div class="plant-info">Give us yummy fruits</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🌵</div>
+                    <div class="plant-name">Cactus</div>
+                    <div class="plant-info">Lives in hot, dry places</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🎉 Amazing Plant Facts!</h3>
+            <p>• Plants give us the air we breathe!</p>
+            <p>• Some trees can live for hundreds of years!</p>
+            <p>• Sunflowers always turn to face the sun!</p>
+            <p>• Plants can grow without soil in water!</p>
+        </div>
+        
+        <div class="section">
+            <h2>☀️ What Do Plants Need?</h2>
+            <p>Just like us, plants need special things to stay alive and healthy:</p>
+            
+            <div class="plant-grid">
+                <div class="plant-card">
+                    <div class="plant-emoji">☀️</div>
+                    <div class="plant-name">Sunlight</div>
+                    <div class="plant-info">Energy to make food</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">💧</div>
+                    <div class="plant-name">Water</div>
+                    <div class="plant-info">To drink and stay fresh</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🌬️</div>
+                    <div class="plant-name">Air</div>
+                    <div class="plant-info">To breathe and make food</div>
+                </div>
+                
+                <div class="plant-card">
+                    <div class="plant-emoji">🌱</div>
+                    <div class="plant-name">Soil</div>
+                    <div class="plant-info">Home for roots</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity-box">
+            <h3>🌱 Fun Activity: Grow Your Own Plant!</h3>
+            <p>Let's help Chloe grow a plant!</p>
+            <ol class="steps">
+                <li>Get a small pot and some soil</li>
+                <li>Plant a bean or flower seed in the soil</li>
+                <li>Give it a little water every day</li>
+                <li>Put it near a window for sunlight</li>
+                <li>Watch it grow bigger every day!</li>
+                <li>Draw pictures of how it changes</li>
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h2>🌍 Why Are Plants Important?</h2>
+            <p>Plants help us and all living things in many ways:</p>
+            <p>• They give us fresh air to breathe</p>
+            <p>• They give us food like fruits and vegetables</p>
+            <p>• They make our world beautiful and colorful</p>
+            <p>• They give homes to animals and insects</p>
+            <p>• They help keep our planet healthy</p>
+        </div>
+        
+        <div class="word-box">
+            <h3>📚 New Words We Learned</h3>
+            <div class="word-list">
+                <div class="word-item">
+                    <strong>Plant</strong><br>
+                    Living thing that grows
+                </div>
+                <div class="word-item">
+                    <strong>Roots</strong><br>
+                    Part that gets water
+                </div>
+                <div class="word-item">
+                    <strong>Leaves</strong><br>
+                    Green parts that make food
+                </div>
+                <div class="word-item">
+                    <strong>Sunlight</strong><br>
+                    Light from the sun
+                </div>
+                <div class="word-item">
+                    <strong>Soil</strong><br>
+                    Dirt where plants grow
+                </div>
+                <div class="word-item">
+                    <strong>Grow</strong><br>
+                    Get bigger and taller
+                </div>
+            </div>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🌟 What Chloe Learned Today</h3>
+            <p>Plants are amazing living things that make our world beautiful! They need sunlight, water, air, and soil to grow. Plants help us by giving us food, clean air, and a pretty place to live. We should take care of plants because they take care of us!</p>
+        </div>
+    </div>
+</body>
+</html>

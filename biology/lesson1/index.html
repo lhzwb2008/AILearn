@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals Around Us - Biology Fun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #56ab2f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .animal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .animal-card {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .animal-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .animal-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .animal-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #d63031;
+            margin-bottom: 5px;
+        }
+        
+        .animal-sound {
+            font-size: 1.1em;
+            color: #636e72;
+            font-style: italic;
+        }
+        
+        .fun-fact {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .fun-fact h3 {
+            margin-bottom: 10px;
+        }
+        
+        .activity-box {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            color: white;
+        }
+        
+        .activity-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .word-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .word-box h3 {
+            color: #56ab2f;
+            margin-bottom: 15px;
+        }
+        
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .word-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #56ab2f;
+        }
+        
+        .word-item strong {
+            color: #56ab2f;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='../index.html'">← Back to Biology</button>
+    
+    <div class="header">
+        <h1>🐶 Animals Around Us</h1>
+        <p>Let's meet our animal friends!</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h2>🏠 Animals We Know</h2>
+            <p>Animals are living things that move around and need food to live. Some animals live with us as pets, some live on farms, and others live in the wild!</p>
+        </div>
+        
+        <div class="section">
+            <h2>🐕 Pet Animals</h2>
+            <p>These animals live in our homes and are our friends:</p>
+            
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <div class="animal-emoji">🐶</div>
+                    <div class="animal-name">Dog</div>
+                    <div class="animal-sound">Woof! Woof!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐱</div>
+                    <div class="animal-name">Cat</div>
+                    <div class="animal-sound">Meow! Meow!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐰</div>
+                    <div class="animal-name">Rabbit</div>
+                    <div class="animal-sound">*hop hop*</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐹</div>
+                    <div class="animal-name">Hamster</div>
+                    <div class="animal-sound">*squeak*</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🚜 Farm Animals</h2>
+            <p>These animals live on farms and help people:</p>
+            
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <div class="animal-emoji">🐄</div>
+                    <div class="animal-name">Cow</div>
+                    <div class="animal-sound">Moo! Moo!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐷</div>
+                    <div class="animal-name">Pig</div>
+                    <div class="animal-sound">Oink! Oink!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐔</div>
+                    <div class="animal-name">Chicken</div>
+                    <div class="animal-sound">Cluck! Cluck!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐑</div>
+                    <div class="animal-name">Sheep</div>
+                    <div class="animal-sound">Baa! Baa!</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🎉 Cool Animal Facts!</h3>
+            <p>• Dogs can smell 1000 times better than people!</p>
+            <p>• Cats sleep 12-16 hours every day!</p>
+            <p>• Cows give us milk to drink!</p>
+            <p>• Chickens give us eggs to eat!</p>
+        </div>
+        
+        <div class="section">
+            <h2>🌳 Wild Animals</h2>
+            <p>These animals live in nature - in forests, oceans, and other wild places:</p>
+            
+            <div class="animal-grid">
+                <div class="animal-card">
+                    <div class="animal-emoji">🦁</div>
+                    <div class="animal-name">Lion</div>
+                    <div class="animal-sound">Roar!</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐘</div>
+                    <div class="animal-name">Elephant</div>
+                    <div class="animal-sound">*trumpet*</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐧</div>
+                    <div class="animal-name">Penguin</div>
+                    <div class="animal-sound">*squawk*</div>
+                </div>
+                
+                <div class="animal-card">
+                    <div class="animal-emoji">🐠</div>
+                    <div class="animal-name">Fish</div>
+                    <div class="animal-sound">*bubble*</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity-box">
+            <h3>🎮 Fun Activity: Animal Sounds Game!</h3>
+            <p>Let's play a game with Chloe!</p>
+            <ol class="steps">
+                <li>Ask someone to make an animal sound</li>
+                <li>Try to guess which animal it is</li>
+                <li>Point to the animal on this page</li>
+                <li>Take turns making sounds for each other</li>
+                <li>See how many animals you can remember!</li>
+            </ol>
+        </div>
+        
+        <div class="word-box">
+            <h3>📚 New Words We Learned</h3>
+            <div class="word-list">
+                <div class="word-item">
+                    <strong>Animal</strong><br>
+                    Living thing that moves
+                </div>
+                <div class="word-item">
+                    <strong>Pet</strong><br>
+                    Animal friend at home
+                </div>
+                <div class="word-item">
+                    <strong>Farm</strong><br>
+                    Place where animals live
+                </div>
+                <div class="word-item">
+                    <strong>Wild</strong><br>
+                    Animals in nature
+                </div>
+                <div class="word-item">
+                    <strong>Sound</strong><br>
+                    Noise animals make
+                </div>
+                <div class="word-item">
+                    <strong>Living</strong><br>
+                    Alive and growing
+                </div>
+            </div>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🌟 What Chloe Learned Today</h3>
+            <p>Animals are amazing living things! They come in many shapes and sizes. Some are our friends at home, some help us on farms, and others live free in nature. Each animal is special and important!</p>
+        </div>
+    </div>
+</body>
+</html>
