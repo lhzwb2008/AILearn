@@ -12,11 +12,13 @@
         }
         
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Arial', 'Helvetica', sans-serif;
             background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
+            font-size: 18px;
+            line-height: 1.8;
         }
         
         .header {
@@ -72,9 +74,9 @@
         }
         
         .section p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 20px;
         }
         
         .plant-grid {
@@ -102,14 +104,14 @@
         }
         
         .plant-name {
-            font-size: 1.3em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #00695c;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .plant-info {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #004d40;
         }
         
@@ -241,6 +243,111 @@
             color: #856404;
         }
         
+        .quiz-box {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .quiz-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        
+        .quiz-question {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.2em;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .quiz-option.selected {
+            border-color: #ffeaa7;
+            background: rgba(255,234,167,0.3);
+        }
+        
+        .quiz-option.correct {
+            border-color: #00b894;
+            background: rgba(0,184,148,0.3);
+        }
+        
+        .quiz-option.wrong {
+            border-color: #e17055;
+            background: rgba(225,112,85,0.3);
+        }
+        
+        .quiz-btn {
+            background: #ffeaa7;
+            color: #2d3436;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .quiz-btn:hover {
+            background: #fdcb6e;
+            transform: scale(1.05);
+        }
+        
+        .quiz-btn:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            display: none;
+        }
+        
+        .quiz-result.correct {
+            background: rgba(0,184,148,0.2);
+            border: 2px solid #00b894;
+        }
+        
+        .quiz-result.wrong {
+            background: rgba(225,112,85,0.2);
+            border: 2px solid #e17055;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
         .growing-demo {
             text-align: center;
             font-size: 2em;
@@ -264,9 +371,26 @@
     </div>
     
     <div class="content">
-        <div class="growing-demo">🌱 → 🌿 → 🌳</div>
+        <div class="quiz-box">
+            <h3>🧠 Let's Start with a Plant Quiz!</h3>
+            <div class="quiz-question">
+                🌱 What do plants need most to make their own food?
+            </div>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(this, false)">🍔 Hamburgers</div>
+                <div class="quiz-option" onclick="selectOption(this, true)">☀️ Sunlight</div>
+                <div class="quiz-option" onclick="selectOption(this, false)">🎵 Music</div>
+                <div class="quiz-option" onclick="selectOption(this, false)">📱 Phone</div>
+            </div>
+            <button class="quiz-btn" onclick="checkAnswer()" id="checkBtn" disabled>Check My Answer!</button>
+            <button class="quiz-btn hidden" onclick="nextQuestion()" id="nextBtn">Continue Learning!</button>
+            
+            <div class="quiz-result" id="quizResult"></div>
+        </div>
         
-        <div class="section">
+        <div class="growing-demo" id="mainContent" style="display: none;">🌱 → 🌿 → 🌳</div>
+        
+        <div class="section" id="plantSection" style="display: none;">
             <h2>🌿 What Are Plants?</h2>
             <p>Plants are living things just like animals! But they are different because they can't move around like we do. Plants make their own food using sunlight, water, and air!</p>
         </div>
@@ -442,5 +566,74 @@
             <p>Plants are amazing living things that make our world beautiful! They need sunlight, water, air, and soil to grow. Plants help us by giving us food, clean air, and a pretty place to live. We should take care of plants because they take care of us!</p>
         </div>
     </div>
+    
+    <script>
+        let selectedOption = null;
+        let isCorrect = false;
+        
+        function selectOption(element, correct) {
+            // Remove previous selection
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Mark current selection
+            element.classList.add('selected');
+            selectedOption = element;
+            isCorrect = correct;
+            
+            // Enable check button
+            document.getElementById('checkBtn').disabled = false;
+        }
+        
+        function checkAnswer() {
+            const resultDiv = document.getElementById('quizResult');
+            const checkBtn = document.getElementById('checkBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Disable further selection
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt.onclick.toString().includes('true')) {
+                    opt.classList.add('correct');
+                }
+            });
+            
+            if (selectedOption) {
+                if (isCorrect) {
+                    selectedOption.classList.add('correct');
+                    resultDiv.className = 'quiz-result correct';
+                    resultDiv.innerHTML = `
+                        <div>🎉 Amazing! You got it right!</div>
+                        <div style="margin-top: 15px; font-size: 1.1em;">Yes! Plants are like little food factories! They use sunlight, water, and air to make their own food. This process is called photosynthesis. Can you guess what color helps plants catch sunlight? 🤔</div>
+                    `;
+                } else {
+                    selectedOption.classList.add('wrong');
+                    resultDiv.className = 'quiz-result wrong';
+                    resultDiv.innerHTML = `
+                        <div>🌟 Great guess! Keep trying - that's how we learn!</div>
+                        <div style="margin-top: 15px; font-size: 1.1em;">The correct answer is Sunlight! ☀️ Plants are amazing because they can make their own food using sunlight, water, and air. They don't need to eat hamburgers like us! This special ability makes them very important for our planet! 🌍</div>
+                    `;
+                }
+            }
+            
+            resultDiv.style.display = 'block';
+            checkBtn.style.display = 'none';
+            nextBtn.classList.remove('hidden');
+        }
+        
+        function nextQuestion() {
+            document.querySelector('.quiz-box').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('plantSection').style.display = 'block';
+            
+            // Show all other sections
+            document.querySelectorAll('.section').forEach(section => {
+                if (section.id !== 'plantSection') {
+                    section.style.display = 'block';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
