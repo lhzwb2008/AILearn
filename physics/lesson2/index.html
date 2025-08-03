@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸飞机的飞行秘密 - Chloe的物理世界</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #0984e3;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #e17055;
+        }
+        
+        .highlight-box h3 {
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+        
+        .experiment-box {
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #00b894;
+        }
+        
+        .experiment-box h3 {
+            color: #00695c;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #00b894;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .fun-fact {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .fun-fact h3 {
+            margin-bottom: 10px;
+        }
+        
+        .airplane-demo {
+            text-align: center;
+            font-size: 4em;
+            margin: 20px 0;
+            animation: fly 3s ease-in-out infinite;
+        }
+        
+        @keyframes fly {
+            0%, 100% { transform: translateX(-20px) rotate(-5deg); }
+            50% { transform: translateX(20px) rotate(5deg); }
+        }
+        
+        .forces-diagram {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .force-arrow {
+            display: inline-block;
+            margin: 10px 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .lift { background: #74b9ff; }
+        .drag { background: #fd79a8; }
+        .weight { background: #fdcb6e; }
+        .thrust { background: #55a3ff; }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="location.href='../index.html'">← 返回物理课程</button>
+    
+    <div class="header">
+        <h1>✈️ 纸飞机的飞行秘密</h1>
+        <p>和Chloe一起探索为什么纸飞机会突然拐弯！</p>
+    </div>
+    
+    <div class="content">
+        <div class="airplane-demo">✈️</div>
+        
+        <div class="section">
+            <h2>🤔 Chloe的疑问</h2>
+            <p>Chloe发现了一个有趣的现象：当她折好一架纸飞机并用力投出去时，飞机有时候会直直地飞行，但更多时候会突然向左或向右拐弯，甚至会翻滚！这是为什么呢？</p>
+        </div>
+        
+        <div class="highlight-box">
+            <h3>🎯 今天我们要解决的问题</h3>
+            <p>为什么纸飞机的飞行轨迹不稳定？为什么它们经常会突然改变方向？</p>
+        </div>
+        
+        <div class="section">
+            <h2>🌪️ 影响纸飞机飞行的四个力</h2>
+            <p>要理解纸飞机为什么会拐弯，我们首先需要了解作用在飞机上的四个重要的力：</p>
+            
+            <div class="forces-diagram">
+                <h3>纸飞机受到的力</h3>
+                <div class="force-arrow lift">⬆️ 升力 (Lift)</div>
+                <div class="force-arrow drag">⬅️ 阻力 (Drag)</div>
+                <div class="force-arrow weight">⬇️ 重力 (Weight)</div>
+                <div class="force-arrow thrust">➡️ 推力 (Thrust)</div>
+            </div>
+            
+            <p><strong>升力：</strong>空气流过机翼时产生的向上的力</p>
+            <p><strong>阻力：</strong>空气阻碍飞机前进的力</p>
+            <p><strong>重力：</strong>地球吸引飞机向下的力</p>
+            <p><strong>推力：</strong>我们投掷时给飞机的向前的力</p>
+        </div>
+        
+        <div class="section">
+            <h2>🎢 为什么纸飞机会突然拐弯？</h2>
+            
+            <div class="highlight-box">
+                <h3>主要原因1：机翼不对称</h3>
+                <p>当我们折纸飞机时，很难做到完全对称。如果左右机翼的形状、角度或重量稍有不同，产生的升力就会不一样，飞机就会向升力小的一边倾斜和转弯。</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>主要原因2：投掷角度和力度</h3>
+                <p>如果我们投掷时手腕稍微偏向一边，或者用力不均匀，飞机就会带着旋转飞出去，导致飞行轨迹弯曲。</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>主要原因3：空气流动</h3>
+                <p>室内的空气并不是完全静止的，微小的气流变化会推动轻巧的纸飞机改变方向。</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>主要原因4：重心位置</h3>
+                <p>如果纸飞机的重心不在中央，飞机就会失去平衡，导致翻滚或急转弯。</p>
+            </div>
+        </div>
+        
+        <div class="experiment-box">
+            <h3>🧪 Chloe的实验时间</h3>
+            <p>让我们做一个简单的实验来验证这些原理：</p>
+            <ol class="steps">
+                <li>折两架相同的纸飞机</li>
+                <li>在其中一架的右翼尖端贴一小块胶带（增加重量）</li>
+                <li>同时投掷两架飞机，观察飞行轨迹的差异</li>
+                <li>尝试调整投掷角度和力度，看看对飞行路径的影响</li>
+                <li>在飞机头部添加回形针，观察重心变化对飞行的影响</li>
+            </ol>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🎉 有趣的事实</h3>
+            <p>真正的飞机也会遇到类似的问题！飞行员需要不断调整操纵杆来保持飞机平稳飞行。现代客机有自动驾驶系统来帮助保持稳定。</p>
+        </div>
+        
+        <div class="section">
+            <h2>🛠️ 如何让纸飞机飞得更稳？</h2>
+            <p><strong>1. 确保对称：</strong>折纸时要尽量保证左右对称</p>
+            <p><strong>2. 平稳投掷：</strong>用平稳的力度直直投出，避免旋转</p>
+            <p><strong>3. 调整重心：</strong>可以在机头添加小重物来改善平衡</p>
+            <p><strong>4. 选择合适的环境：</strong>在没有风的室内飞行</p>
+        </div>
+        
+        <div class="fun-fact">
+            <h3>🌟 Chloe学到了什么？</h3>
+            <p>通过这节课，Chloe明白了纸飞机的飞行其实涉及很多物理原理。看似简单的现象背后，隐藏着力学、空气动力学等复杂的科学知识。这就是物理的魅力——用科学解释我们身边的现象！</p>
+        </div>
+    </div>
+</body>
+</html>
